@@ -33,9 +33,12 @@ export const Slider = ({ page }: SliderProps) => {
   const { y } = useOffset()
 
   const fetchAlbum = async () => {
-    const res = await fetch(`api/pexels/fetchAlbum?page=${page}&perPage=8`, {
-      method: 'GET',
-    })
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/pexels/fetchAlbum?page=${page}&perPage=8`,
+      {
+        method: 'GET',
+      }
+    )
     if (res.ok) {
       setPhotos(await res.json())
     }
