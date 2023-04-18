@@ -21,6 +21,7 @@ type SliderItemProps = {
   zoomedWidth?: number
   alt: string
   photographer: string
+  photographerUrl: string
   isMobile: boolean
   containerWidth: number
   containerScroll: number
@@ -36,6 +37,7 @@ export const SliderItem = ({
   zoomedWidth,
   alt,
   photographer,
+  photographerUrl,
   isMobile,
   containerWidth,
   containerScroll,
@@ -102,7 +104,13 @@ export const SliderItem = ({
 
   useEffect(() => {
     isFocused &&
-      ref.current?.setAttribute('style', `min-width: ${zoomedWidth}px`)
+      ref.current?.setAttribute(
+        'style',
+        `min-width: ${zoomedWidth}px; 
+        border-left: 10px solid;
+        border-right: 10px solid;
+        `
+      )
     !isFocused && ref.current?.setAttribute('style', '')
     isFocused &&
       setTimeout(() => {
@@ -143,7 +151,7 @@ export const SliderItem = ({
       key={alt}
       onClick={handleOnImageClick}
       className={classnames(
-        'relative min-w-[80vw] sm:min-w-[15vw] h-[80vh] flex items-center ease-in-out pt-4 mr-4 cursor-pointer',
+        'relative min-w-[80vw] sm:min-w-[8vw] h-[84vh] flex items-center ease-in-out cursor-pointer duration-500 border-black',
         {
           /* '-translate-y-1/2 opacity-0': navigate && idx % 2 === 0,
           'translate-y-1/2 opacity-0': navigate && idx % 2 === 0, */
@@ -156,7 +164,6 @@ export const SliderItem = ({
       )}
     >
       <Image
-        className='rounded-lg'
         fill
         sizes='(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
@@ -169,7 +176,10 @@ export const SliderItem = ({
         alt={alt}
       />
 
-      <h3
+      <a
+        onClick={(e) => e.stopPropagation()}
+        target='_blank'
+        href={photographerUrl}
         className={classnames(
           'w-full text-center absolute -bottom-7 text-white opacity-0 duration-500',
           {
@@ -177,8 +187,8 @@ export const SliderItem = ({
           }
         )}
       >
-        {photographer}
-      </h3>
+        <p className='text-base'>{photographer}</p>
+      </a>
       <Link
         href={`/detail/${idx}`}
         onClick={handleLinkClick}
@@ -189,7 +199,7 @@ export const SliderItem = ({
           }
         )}
       >
-        Ver mas
+        View more
       </Link>
     </li>
   )

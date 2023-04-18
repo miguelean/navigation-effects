@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import { Gallery } from '~components/organisms/Gallery'
 import { Header } from '~components/organisms/Header'
 

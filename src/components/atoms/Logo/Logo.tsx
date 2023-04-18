@@ -1,5 +1,5 @@
 'use client'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useNavigationContext } from '~components/providers/NavigationProvider'
 import { Link } from '../Link/Link'
 
@@ -9,15 +9,18 @@ type LogoProps = {
 
 export const Logo = ({ className }: LogoProps) => {
   const { push } = useRouter()
+  const path = usePathname()
   const { setNavigate, setDelay } = useNavigationContext()
   const handleLinkClick = (e: { stopPropagation: () => void }) => {
-    e.stopPropagation()
-    setDelay(1000)
-    setNavigate(true)
-    setTimeout(() => {
-      setDelay(500)
-      push(`/`)
-    }, 1000)
+    if (path !== '/') {
+      e.stopPropagation()
+      setDelay(1000)
+      setNavigate(true)
+      setTimeout(() => {
+        setDelay(500)
+        push(`/`)
+      }, 1000)
+    }
   }
   return (
     <div className={className}>
