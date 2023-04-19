@@ -151,7 +151,7 @@ export const SliderItem = ({
       key={alt}
       onClick={handleOnImageClick}
       className={classnames(
-        'relative min-w-[80vw] sm:min-w-[8vw] h-[84vh] flex items-center ease-in-out cursor-pointer duration-500 border-black',
+        'relative min-w-[80vw] sm:min-w-[8vw] h-[84vh] flex items-center ease-in-out cursor-pointer border-black z-50',
         {
           /* '-translate-y-1/2 opacity-0': navigate && idx % 2 === 0,
           'translate-y-1/2 opacity-0': navigate && idx % 2 === 0, */

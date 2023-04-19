@@ -3,11 +3,12 @@
 import classnames from 'classnames'
 import { useNavigationContext } from '~components/providers/NavigationProvider'
 import { CSSProperties, useEffect, useReducer, useRef, useState } from 'react'
-import { SliderItem } from '~components/atoms/SliderItem'
+import { SliderItem } from '~components/molecules/SliderItem'
 import { useOffset } from '~helpers/index'
 import { useRouter } from 'next/navigation'
 import { Photo } from '~types/Photo'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
+import classNames from 'classnames'
 
 type SliderProps = {
   page: number
@@ -114,11 +115,16 @@ export const Slider = ({ page }: SliderProps) => {
     main?.addEventListener('wheel', scrollHandler)
   }, [])
 
+  ref.current &&
+    console.log(
+      ref.current.scrollLeft / window.innerWidth,
+      ref.current.offsetWidth
+    )
   const variant: Variants = {
     initial: {
       opacity: 0,
     },
-    whileInView: {
+    animate: {
       opacity: 1,
     },
     exit: {
@@ -131,30 +137,39 @@ export const Slider = ({ page }: SliderProps) => {
       ref={ref}
       style={style}
       className={classnames(
-        'w-full h-[90vh] px-4 sm:px-8 flex overflow-x-scroll overflow-y-hidden hiddenScrollBar'
+        'w-full h-[90vh] pl-4 sm:pl-8 flex overflow-x-scroll overflow-y-hidden hiddenScrollBar'
       )}
     >
-      {!isMobile && (
-        <AnimatePresence>
-          {!navigate && (
-            <motion.li
-              variants={variant}
-              initial='initial'
-              whileInView='whileInView'
-              exit='exit'
-              transition={{
-                duration: 1.5,
-                ease: 'easeInOut',
-              }}
-              className='min-w-[40vw] min-h-full flex flex-col justify-center items-center text-white'
-            >
-              <div className='fixed flex flex-col justify-center items-center'>
+      {!isMobile && !navigate && (
+        <li
+          className={classNames(
+            'min-w-[35vw] min-h-full flex flex-col justify-center items-center text-white duration-[1500ms] ease-in-out',
+            {
+              'opacity-0':
+                ref.current &&
+                ref.current.scrollLeft / window.innerWidth > 0.14 &&
+                ref.current.offsetWidth !== 0,
+            }
+          )}
+        >
+          <AnimatePresence>
+            {!navigate && (
+              <motion.div
+                variants={variant}
+                initial='initial'
+                animate='animate'
+                transition={{
+                  duration: 1.5,
+                  ease: 'easeInOut',
+                }}
+                className='fixed flex flex-col justify-center items-center'
+              >
                 <h1>Title placeholder</h1>
                 <h2>Subtitle</h2>
-              </div>
-            </motion.li>
-          )}
-        </AnimatePresence>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </li>
       )}
       {photos.map((photo: Photo, idx) => {
         const urlParams = new URLSearchParams(photo.src?.portrait)
@@ -162,7 +177,6 @@ export const Slider = ({ page }: SliderProps) => {
         const h = +(urlParams.get('h') as string)
         const zoomedWidth =
           ((ref.current?.getBoundingClientRect().height ?? 1) * w) / h
-        console.log(photo)
         return (
           <SliderItem
             id={photo.id}
@@ -182,27 +196,26 @@ export const Slider = ({ page }: SliderProps) => {
           />
         )
       })}
-      {!isMobile && (
-        <AnimatePresence>
-          {!navigate && (
-            <motion.li
-              variants={variant}
-              initial='initial'
-              whileInView='whileInView'
-              exit='exit'
-              transition={{
-                duration: 1.5,
-                ease: 'easeInOut',
-              }}
-              className='min-w-[40vw] min-h-full flex flex-col justify-center items-center text-white'
-            >
-              <div className='flex flex-col justify-center items-center'>
-                <h1>Title placeholder</h1>
-                <h2>Subtitle</h2>
-              </div>
-            </motion.li>
+      {!isMobile && !navigate && (
+        <li
+          className={classNames(
+            'sticky right-0 min-w-[35vw] min-h-full flex flex-col justify-center items-center text-white duration-[1500ms] ease-in-out',
+            {
+              'opacity-0': !(
+                ref.current &&
+                ref.current.scrollWidth -
+                  ref.current.offsetWidth -
+                  ref.current.scrollLeft <
+                  window.innerWidth / 6
+              ),
+            }
           )}
-        </AnimatePresence>
+        >
+          <div className='flex flex-col justify-center items-center z-40'>
+            <h1>Title placeholder</h1>
+            <h2>Subtitle</h2>
+          </div>
+        </li>
       )}
     </ul>
   )

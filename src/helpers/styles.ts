@@ -2,21 +2,22 @@ import { Size } from '~types/Photo'
 
 export const handleSliderAnimation = (
   idx: number,
-  activaImg: number | undefined,
+  activeImg: number | undefined,
   navigate: boolean,
   type: 'horizontal' | 'vertical'
 ) => {
-  if (activaImg) {
-    if (idx === activaImg) return 'duration-500'
-    if (Math.abs(idx - activaImg) === 1) return 'duration-[1400ms]'
-    if (Math.abs(idx - activaImg) === 2) return 'duration-[1200ms]'
-    if (Math.abs(idx - activaImg) === 3) return 'duration-[1000ms]'
-    if (Math.abs(idx - activaImg) === 4) return 'duration-[800ms]'
-    if (Math.abs(idx - activaImg) === 5) return 'duration-[600ms]'
-    if (Math.abs(idx - activaImg) === 6) return 'duration-[400ms]'
-    if (Math.abs(idx - activaImg) === 7) return 'duration-[200ms]'
+  if (activeImg) {
+    if (!navigate) return 'duration-700'
+    if (idx === activeImg) return 'duration-500'
+    if (Math.abs(idx - activeImg) === 1) return 'duration-[1400ms]'
+    if (Math.abs(idx - activeImg) === 2) return 'duration-[1200ms]'
+    if (Math.abs(idx - activeImg) === 3) return 'duration-[1000ms]'
+    if (Math.abs(idx - activeImg) === 4) return 'duration-[800ms]'
+    if (Math.abs(idx - activeImg) === 5) return 'duration-[600ms]'
+    if (Math.abs(idx - activeImg) === 6) return 'duration-[400ms]'
+    if (Math.abs(idx - activeImg) === 7) return 'duration-[200ms]'
   }
-  if (!activaImg) {
+  if (!activeImg) {
     if ((idx === 0 && !navigate) || (idx === 13 && navigate))
       return 'duration-[500ms]'
     if ((idx === 1 && !navigate) || (idx === 12 && navigate))
@@ -45,7 +46,7 @@ export const handleSliderAnimation = (
       return 'duration-[1600ms]'
     if ((idx === 13 && !navigate) || (idx === 0 && navigate))
       return 'duration-[1700ms]'
-    return 'duration-500'
+    return 'duration-700'
   }
 }
 
