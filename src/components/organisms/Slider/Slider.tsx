@@ -140,15 +140,16 @@ export const Slider = ({ page }: SliderProps) => {
         'w-full h-[90vh] pl-4 sm:pl-8 flex overflow-x-scroll overflow-y-hidden hiddenScrollBar'
       )}
     >
-      {!isMobile && !navigate && (
+      {!isMobile && (
         <li
           className={classNames(
-            'min-w-[35vw] min-h-full flex flex-col justify-center items-center text-white duration-[1500ms] ease-in-out',
+            'min-w-[35vw] min-h-full flex flex-col justify-center items-center text-white duration-[1000ms] ease-in-out',
             {
               'opacity-0':
-                ref.current &&
-                ref.current.scrollLeft / window.innerWidth > 0.14 &&
-                ref.current.offsetWidth !== 0,
+                navigate ||
+                (ref.current &&
+                  ref.current.scrollLeft / window.innerWidth > 0.14 &&
+                  ref.current.offsetWidth !== 0),
             }
           )}
         >
@@ -196,25 +197,40 @@ export const Slider = ({ page }: SliderProps) => {
           />
         )
       })}
-      {!isMobile && !navigate && (
+      {!isMobile && (
         <li
           className={classNames(
-            'sticky right-0 min-w-[35vw] min-h-full flex flex-col justify-center items-center text-white duration-[1500ms] ease-in-out',
+            'sticky right-0 min-w-[35vw] min-h-full flex flex-col justify-center items-center text-white duration-[1000ms] ease-in-out',
             {
-              'opacity-0': !(
-                ref.current &&
-                ref.current.scrollWidth -
-                  ref.current.offsetWidth -
-                  ref.current.scrollLeft <
-                  window.innerWidth / 6
-              ),
+              'opacity-0':
+                navigate ||
+                !(
+                  ref.current &&
+                  ref.current.scrollWidth -
+                    ref.current.offsetWidth -
+                    ref.current.scrollLeft <
+                    window.innerWidth / 6
+                ),
             }
           )}
         >
-          <div className='flex flex-col justify-center items-center z-40'>
-            <h1>Title placeholder</h1>
-            <h2>Subtitle</h2>
-          </div>
+          <AnimatePresence>
+            {!navigate && (
+              <motion.div
+                variants={variant}
+                initial='initial'
+                animate='animate'
+                transition={{
+                  duration: 1.5,
+                  ease: 'easeInOut',
+                }}
+                className='flex flex-col justify-center items-center z-40'
+              >
+                <h1>Title placeholder</h1>
+                <h2>Subtitle</h2>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </li>
       )}
     </ul>
