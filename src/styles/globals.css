@@ -128,22 +128,10 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-.bg-gradient-dark-ocean {
-  background-image: url('../../public/gradient-dark-ocean.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.bg-gradient-dark-ocean-reverse {
-  background-image: url('../../public/gradient-dark-ocean-reverse.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .bg-gradient-pure-lust {
-  background-image: url('../../public/gradient-pure-lust.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: #333333;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #dd1818, #333333);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #dd1818, #333333); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .bg-gradient-pure-lust-reverse {
