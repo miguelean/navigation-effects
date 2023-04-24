@@ -19,6 +19,7 @@ export const Link: FunctionComponent<LinkProps & CustomLinkProps> = ({
 }) => {
   return (
     <button
+      aria-label='link'
       className={classnames('duration-500 ease-in-out', className)}
       onClick={onClick}
     >

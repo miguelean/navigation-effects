@@ -115,11 +115,6 @@ export const Slider = ({ page }: SliderProps) => {
     main?.addEventListener('wheel', scrollHandler)
   }, [])
 
-  ref.current &&
-    console.log(
-      ref.current.scrollLeft / window.innerWidth,
-      ref.current.offsetWidth
-    )
   const variant: Variants = {
     initial: {
       opacity: 0,
