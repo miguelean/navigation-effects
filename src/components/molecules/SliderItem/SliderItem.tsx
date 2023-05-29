@@ -103,15 +103,33 @@ export const SliderItem = ({
   }, [activeImg])
 
   useEffect(() => {
-    isFocused &&
-      ref.current?.setAttribute(
-        'style',
-        `min-width: ${zoomedWidth}px; 
+    if (isFocused) {
+      isMobile &&
+        ref.current?.setAttribute(
+          'style',
+          `min-width: 100vw; 
         border-left: 10px solid;
         border-right: 10px solid;
+        transition-duration:600ms;
         `
-      )
-    !isFocused && ref.current?.setAttribute('style', '')
+        )
+      !isMobile &&
+        ref.current?.setAttribute(
+          'style',
+          `min-width: ${zoomedWidth}px; 
+        border-left: 10px solid;
+        border-right: 10px solid;
+        transition-duration:600ms;
+        `
+        )
+    }
+
+    !isFocused &&
+      ref.current?.setAttribute('style', 'transition-duration:600ms')
+    !isFocused &&
+      setTimeout(() => {
+        ref.current?.setAttribute('style', '')
+      }, 500)
     isFocused &&
       setTimeout(() => {
         setShowExtraInfo(true)
@@ -151,7 +169,7 @@ export const SliderItem = ({
       key={alt}
       onClick={handleOnImageClick}
       className={classnames(
-        'relative min-w-[80vw] sm:min-w-[8vw] h-[84vh] flex items-center ease-in-out cursor-pointer border-black z-50',
+        'relative min-w-[30vw] sm:min-w-[8vw] h-[84vh] flex items-center ease-in-out cursor-pointer border-black z-50',
         {
           /* '-translate-y-1/2 opacity-0': navigate && idx % 2 === 0,
           'translate-y-1/2 opacity-0': navigate && idx % 2 === 0, */
@@ -171,7 +189,7 @@ export const SliderItem = ({
         onLoad={handleOnImageLoad}
         priority
         quality={100}
-        style={!isMobile ? style : { objectFit: 'cover' }}
+        style={style}
         src={src}
         alt={alt}
       />

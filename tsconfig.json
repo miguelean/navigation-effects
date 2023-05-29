@@ -23,7 +23,7 @@
       "~components/*": ["./src/components/*"],
       "~styles/*": ["./src/styles/*"],
       "~domains/*": ["./src/domains/*"],
-      "~helpers/*": ["./src/helpers"],
+      "~helpers/*": ["./src/helpers/"],
       "~config/*": ["./src/config/*"],
       "~pages/*": ["./src/pages/*"],
       "~types/*": ["./src/types/*"],

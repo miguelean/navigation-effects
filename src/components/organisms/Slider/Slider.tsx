@@ -47,18 +47,20 @@ export const Slider = ({ page }: SliderProps) => {
   }
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 376)
+    setIsMobile(window.innerWidth < 400)
   }, [])
 
   useEffect(() => {
-    isMobile &&
+    if (isMobile && activeImg) {
       ref.current?.scrollTo({
         left:
-          ref.current?.scrollLeft +
-          (document.getElementById(`${activeImg}`)?.getBoundingClientRect()
-            .left ?? 0),
+          (document.getElementById(`${activeImg}`)?.offsetWidth ?? 0) *
+            (activeImg ?? 1) +
+          16 -
+          activeImg / 2,
         behavior: 'smooth',
       })
+    }
   }, [activeImg, isMobile])
 
   useEffect(() => {

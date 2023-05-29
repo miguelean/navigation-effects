@@ -23,7 +23,7 @@ export const Logo = ({ className }: LogoProps) => {
     }
   }
   return (
-    <div className={className}>
+    <span className={className}>
       <Link className='w-full h-full' onClick={handleLinkClick} href={'/'}>
         <svg viewBox='0 0 370 68.9792524435448'>
           <defs id='SvgjsDefs1957'></defs>
@@ -48,6 +48,6 @@ export const Logo = ({ className }: LogoProps) => {
           </g>
         </svg>
       </Link>
-    </div>
+    </span>
   )
 }
