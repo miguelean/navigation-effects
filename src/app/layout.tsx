@@ -1,5 +1,5 @@
 import { Transition } from '~components/atoms/Transition'
-import { Header } from '~components/organisms/Header'
+import { Analytics } from '@vercel/analytics/react'
 import { NavigationContextProvider } from '~components/providers/NavigationProvider'
 import '~styles/globals.css'
 
@@ -20,6 +20,7 @@ export default function RootLayout({
           <Transition />
           {children}
         </NavigationContextProvider>
+        <Analytics />
       </body>
     </html>
   )
